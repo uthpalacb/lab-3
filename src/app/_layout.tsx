@@ -1,18 +1,24 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { Tabs } from "expo-router";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
-
-SplashScreen.preventAutoHideAsync();
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
+      <Tabs.Screen
+        name="(home)"
+        options={{
+          title: "Home",
+          headerShown: false, // Hidden because the Stack inside will have its own header
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="home" size={24} color={color} />
+        }}
+      />
+      <Tabs.Screen
+        name="clock"
+        options={{
+          title: "Live Clock",
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="clock" size={24} color={color} />
+        }}
+      />
+    </Tabs>
   );
 }
